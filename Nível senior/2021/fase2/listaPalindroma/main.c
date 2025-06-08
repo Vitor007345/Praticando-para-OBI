@@ -32,8 +32,11 @@ int main()
     scanf("%d", &qnt);
     vectorInt v = createVectorInt(qnt);
     lerVectorInt(&v, qnt);
+    //for(int i = 99; i >= 0; i--){
+        //pushInVectorInt(&v, i);
+    //}
     printf("%d\n", numContracoesAtePalindromo(&v));
-    printVectorInt(v);
+    //printVectorInt(v);
 
 
 
@@ -178,11 +181,10 @@ int contracao(vectorInt* v, int index1, int index2, int* valorSoma){
 
 int corrigirValoresHelper(vectorInt* v, int i, int j, int backupI, int backupJ, int first, int last, char letraAtestar){
     int numContracoes;
-    printf("i:%d -- j:%d -- backupI:%d -- backupJ:%d -- first:%d -- last:%d -- letra:%c\n", i, j, backupI, backupJ, first, last, letraAtestar);
+    //printf("i:%d -- j:%d -- backupI:%d -- backupJ:%d -- first:%d -- last:%d -- letra:%c\n", i, j, backupI, backupJ, first, last, letraAtestar);
     int soma1 = somaArrDeIndexAoutro(*v, first, i);
     int soma2 = somaArrDeIndexAoutro(*v, j, last);
-    printf("soma1:%d -- soma2:%d\n", soma1, soma2);
-    //printf("soma1: %d   ----  soma2: %d\n", soma1, soma2);
+    //printf("soma1:%d -- soma2:%d\n", soma1, soma2);
     if(soma1 != soma2){
         if(letraAtestar == 'i'){
             if(soma1 < soma2 && ((i + 1) < j)){
@@ -198,7 +200,7 @@ int corrigirValoresHelper(vectorInt* v, int i, int j, int backupI, int backupJ, 
                     numContracoes = corrigirValoresHelper(v, i + 1, backupJ - 1, (backupI + 1), (backupJ - 1), first, last, 'i');
                 }else{
                     numContracoes = contracao(v, first, last, NULL);
-                    printf("numContracoesAqui: %d\n", numContracoes);
+                    //printf("numContracoesAqui: %d\n", numContracoes);
                 }
 
             }
@@ -208,7 +210,7 @@ int corrigirValoresHelper(vectorInt* v, int i, int j, int backupI, int backupJ, 
         int contracao1 = contracao(v, first, i, &soma1);
         int contracao2 = contracao(v, j - contracao1, last - contracao1, &soma2);
         numContracoes = contracao1 + contracao2;
-        printf("numContracoes: %d\n", numContracoes);
+        //printf("numContracoes: %d\n", numContracoes);
     }
 
     return numContracoes;
