@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1749221698 source:c:\users\vitor\desktop\particando-obi\nível senior\2021\2021\fase1\baralho\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+

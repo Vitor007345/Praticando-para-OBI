@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1749303755 source:c:\users\vitor\desktop\particando-obi\nível senior\2021\fase1\tennis\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
