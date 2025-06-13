@@ -32,11 +32,12 @@ int main()
     scanf("%d", &qnt);
     vectorInt v = createVectorInt(qnt);
     lerVectorInt(&v, qnt);
-    //for(int i = 99; i >= 0; i--){
+    //for(int i = 199; i >= 0; i--){
         //pushInVectorInt(&v, i);
     //}
     printf("%d\n", numContracoesAtePalindromo(&v));
     //printVectorInt(v);
+    destroyVectorInt(&v);
 
 
 
@@ -178,7 +179,61 @@ int contracao(vectorInt* v, int index1, int index2, int* valorSoma){
 }
 
 
+int corrigirValores(vectorInt* v, int i, int j){
+    int first = i;
+    int last = j;
+    int soma1 = v->v[i];
+    int soma2 = v->v[j];
+    //printf("i:%d, j:%d\n", i, j);
+    //printf("soma1:%d, soma2:%d\n", soma1, soma2);
+    while(soma1 != soma2 && i < j){
+        if(soma1 < soma2){
+            i++;
+        }else{
+            j--;
+        }
+        if(i < j){
+            soma1 = somaArrDeIndexAoutro(*v, first, i);
+            soma2 = somaArrDeIndexAoutro(*v, j, last);
+        }
+        //printf("i:%d, j:%d\n", i, j);
+        //printf("soma1:%d, soma2:%d\n", soma1, soma2);
 
+    }
+
+    int numContracoes;
+    if(soma1 == soma2){
+        int contracao1 = contracao(v, first, i, &soma1);
+        int contracao2 = contracao(v, j - contracao1, last - contracao1, &soma2);
+        numContracoes = contracao1 + contracao2;
+    }else{
+        numContracoes = contracao(v, first, last, NULL);
+    }
+    return numContracoes;
+}
+
+
+
+int numContracoesAtePalindromo(vectorInt* v){
+    int numContracoes = 0;
+
+    for(int i = 0, j = v->length - 1; i < j; i++, j--){
+        if(v->v[i] != v->v[j]){
+            int numContracoesAgora = corrigirValores(v, i, j);
+            numContracoes += numContracoesAgora;
+            j -= numContracoesAgora;
+        }
+
+    }
+
+    return numContracoes;
+
+}
+
+
+
+
+/*
 int corrigirValoresHelper(vectorInt* v, int i, int j, int backupI, int backupJ, int first, int last, char letraAtestar){
     int numContracoes;
     //printf("i:%d -- j:%d -- backupI:%d -- backupJ:%d -- first:%d -- last:%d -- letra:%c\n", i, j, backupI, backupJ, first, last, letraAtestar);
@@ -215,24 +270,28 @@ int corrigirValoresHelper(vectorInt* v, int i, int j, int backupI, int backupJ, 
 
     return numContracoes;
 }
-
-
-
-int numContracoesAtePalindromo(vectorInt* v){
-    int numContracoes = 0;
-
-    for(int i = 0, j = v->length - 1; i < j; i++, j--){
-        if(v->v[i] != v->v[j]){
-            int numContracoesAgora = corrigirValoresHelper(v, i, j, i, j, i, j, 'i');
-            numContracoes += numContracoesAgora;
-            j -= numContracoesAgora;
+*/
+/*
+int corrigirValores(vectorInt* v, int i, int j, int first, int last){
+    int numContracoes;
+    int soma1 = somaArrDeIndexAoutro(*v, first, i);
+    int soma2 = somaArrDeIndexAoutro(*v, j, last);
+    if(soma1 != soma2){
+        if(soma1 < soma2 && ((i + 1) < j)){
+            numContracoes = corrigirValores(v, i + 1, j, first, last);
+        }else if((i + 1) < j){
+            numContracoes = corrigirValores(v, i, j - 1, first, last);
+        }else{
+            numContracoes = contracao(v, first, last, NULL);
         }
-
+    }else{
+        int contracao1 = contracao(v, first, i, &soma1);
+        int contracao2 = contracao(v, j - contracao1, last - contracao1, &soma2);
+        numContracoes = contracao1 + contracao2;
     }
-
     return numContracoes;
-
 }
+*/
 
 
 
